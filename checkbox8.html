@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<form>
+  <label>Upload a text file:</label><br>
+  <input type="file" accept=".txt">
+</form>
+
+<script>
+    function uploadFile(file) {
+        var reader = new FileReader();
+    }
+// Get the file input field
+var fileInput = document.querySelector('input[type="file"]');
+
+// Add a change event listener to the file input field
+fileInput.addEventListener('change', function() {
+  // Get the selected file
+  var file = this.files[0];
+
+  // Check that the file is a text file
+  if (file.type === 'text/plain') {
+    // Read the file
+    var reader = new FileReader();
+    reader.addEventListener('load', function() {
+      // Get the file contents
+      var text = this.result;
+
+      // Split the file conte// Get the file input field
+var fileInput = document.querySelector('input[type="file"]');
+
+// Add a change event listener to the file input field
+fileInput.addEventListener('change', function() {
+  // Get the selected file
+  var file = this.files[0];
+
+  // Check that the file is a text file
+  if (file.type === 'text/plain') {
+    // Read the file
+    var reader = new FileReader();
+    reader.addEventListener('load', function() {
+      // Get the file contents
+      var text = this.result;
+
+      // Split the file contents into an array of lines
+      var lines = text.split('\n');
+
+      // Loop through the lines and create checkboxes for each one
+      for (var i = 0; i < lines.length; i++) {
+        // Create a checkbox and label
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'checkbox-' + i;
+
+        var label = document.createElement('label');
+        label.for = 'checkbox-' + i;
+        label.innerHTML = lines[i];
+
+        // Add the checkbox and label to the page
+        document.body.appendChild(checkbox);
+        document.body.appendChild(label);
+        document.body.appendChild(document.createElement('br'));
+nts into an array of lines
+      var lines = text.split('\n');
+
+      // Loop through the lines and create checkboxes for each one
+      for (var i = 0; i < lines.length; i++) {
+        // Create a checkbox and label
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'checkbox-' + i;
+
+        var label = document.createElement('label');
+        label.for = 'checkbox-' + i;
+        label.innerHTML = lines[i];
+
+        // Add the checkbox and label to the page
+        document.body.appendChild(checkbox);
+        document.body.appendChild(label);
+        document.body.appendChild(document.createElement('br'));
+    
+        </body>
+    </script>    
+</html>

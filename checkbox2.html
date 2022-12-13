@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload with Checkboxes</title>
+    <style>
+        /* Add some styles for the checkboxes */
+        input[type="checkbox"] {
+            margin: 0 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>File Upload with Checkboxes</h1>
+
+    <!-- Use a form to allow the user to upload a file -->
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="file-input" />
+        <button type="submit">Upload File</button>
+    </form>
+
+    <!-- This div will be used to display the checkboxes -->
+    <div id="checkbox-container"></div>
+
+    <script>
+        // Get references to the form and input elements
+        const form = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-input');
+
+        // Handle the form submission
+        form.addEventListener('submit', async (event) => {
+            // Prevent the default form behavior
+            event.preventDefault();
+
+            // Get the file from the input element
+            const file = fileInput.files[0];
+
+            // Check if a file was selected
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            // Use the FileReader API to read the contents of the file
+            const reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = () => {
+                // Get the text from the file
+                const text = reader.result;
+
+                // Split the text into an array of lines
+                const lines = text.split('\n');
+
+                // Create checkboxes for each line in the file
+                const checkboxContainer = document.getElementById('checkbox-container');
+                lines.forEach((line) => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = line;
+                    checkboxContainer.appendChild(checkbox);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

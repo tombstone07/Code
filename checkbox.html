@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>Checkboxes</title>
+  </head>
+  <body>
+    <h1>Checkboxes</h1>
+    <div id="checkbox-container"></div>
+
+    <script>
+      
+      const fs = require('fs')
+
+const inputFile = 'file1.txt'
+const outputFile = 'file2.txt'
+
+// Read the input file and create an array of strings
+fs.readFile(inputFile, 'utf8', (err, data) => {
+  if (err) throw err
+
+  const items = data.split('\n')
+
+  // Loop over the array of strings and create a checkbox for each item
+  items.forEach((item) => {
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.value = item
+    document.body.appendChild(checkbox)
+  })
+
+  // Wait for the user to tick some checkboxes
+  const button = document.createElement('button')
+  button.innerHTML = 'Submit'
+  document.body.appendChild(button)
+  button.addEventListener('click', () => {
+    // Get the values of the checked checkboxes
+    const checkedItems = []
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        checkedItems.push(checkbox.value)
+      }
+    })
+
+    // Write the checked items to the output file
+    fs.writeFile(outputFile, checkedItems.join('\n'), (err) => {
+      if (err) throw err
+      console.log(`Saved checked items to ${outputFile}`)
+    })
+
+    // Delete the checked items from the input file
+    const newItems = items.filter((item) => !checkedItems.includes(item))
+    fs.writeFile(inputFile, newItems.join('\n'), (err) => {
+      if (err) throw err
+      console.log(`Deleted checked items from ${inputFile}`)
+    })
+  })
+})
+
+    </script>
+  </body>
+</html>

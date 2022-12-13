@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+
+        <form method="post" enctype="multipart/form-data">
+            <div>
+              <label for="file">Choose file to upload</label>
+              <input type="file" id="file" name="file" multiple />
+            </div>
+            <div>
+              <button>Submit</button>
+            </div>
+          </form>
+          
+          <!-- checkboxes will be displayed here -->
+          <div id="checkboxes"></div>
+          
+          <script>
+            // handle file upload
+            const form = document.querySelector('form')
+            form.addEventListener('submit', (event) => {
+              event.preventDefault()
+          
+              // read the uploaded file
+              const file = form.querySelector('input[type="file"]').files[0]
+              const reader = new FileReader()
+              reader.onload = (event) => {
+                const fileContents = event.target.result
+                const lines = fileContents.split('\n')
+          
+                // create the checkboxes
+                let checkboxHtml = ""
+                for (const line of lines) {
+                  checkboxHtml += `<input type="checkbox" name="${line}" value="${line}"> ${line}<br>`
+                }
+          
+                // display the checkboxes
+                document.querySelector('#checkboxes').innerHTML = checkboxHtml
+              }
+              reader.readAsText(file)
+
+             // handle checkbox submission
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+            for (const checkbox of checkboxes) {
+            checkbox.addEventListener('change', (event) => {
+            if (checkbox.checked) {
+            // add the checked value to the output
+            document.querySelector('#output').innerHTML += `${checkbox.value}<br> 
+            })
+          </script>
+          
+    </body>
+</html>

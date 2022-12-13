@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload and Checkbox Form</title>
+  </head>
+  <body>
+    <h1>File Upload and Checkbox Form</h1>
+    <p>Use this form to upload a file and create checkboxes based on the data in the file. The checked data will be output to one text file, and the unchecked data will be output to another text file.</p>
+    
+    <form action="" method="post" enctype="multipart/form-data">
+      <label for="fileToUpload">Select a file to upload:</label>
+      <input type="file" id="fileToUpload" name="fileToUpload">
+      <input type="submit" value="Upload File" name="submit">
+    </form>
+    
+    
+        </php>
+        if (isset($_POST['submit'])) {
+        // Get the uploaded file
+        $file = $_FILES['fileToUpload'];
+        
+        // Open the uploaded file and read the data
+        $data = file($file['tmp_name']);
+        
+        // Create checkboxes for each piece of data
+        foreach ($data as $datum) {
+          echo "<input type='checkbox' name='data[]' value='" . $datum . "'>" . $datum . "<br>";
+        }
+        
+        // Output the checked data to a text file
+        $checkedDataFile = fopen("checked-data.txt", "w");
+        foreach ($_POST['data'] as $datum) {
+          fwrite($checkedDataFile, $datum);
+        }
+        fclose($checkedDataFile);
+        
+        // Output the unchecked data to a text file
+        $uncheckedDataFile = fopen("unchecked-data.txt", "w");
+        foreach ($data as $datum) {
+          if (!in_array($datum, $_POST['data'])) {
+            fwrite($uncheckedDataFile, $datum);
+          }
+        }
+        fclose($uncheckedDataFile);
+        </php>
+    
+      }
+    ?>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Upload Text File</title>
+</head>
+<body>
+  <h1>Upload Text File</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file">
+    <input type="submit" value="Upload" name="submit">
+  </form>
+  
+  <h2>Checkboxes</h2>
+  <form action="" method="post">
+    <div id="checkbox-container">
+      <!-- checkboxes will be added here -->
+    </div>
+    <input type="submit" value="Submit" name="submit-checkboxes">
+  </form>
+  
+  <script>
+    // get the file input element
+    const fileInput = document.getElementById('file');
+    
+    // listen for when the user selects a file
+    fileInput.addEventListener('change', (event) => )
+      // get the selected file
+      const file = event.target.files[0];
+      
+      // create a new FileReader
+      const reader = new FileReader();
+      
+      // listen for when the file has been loaded
+      reader.addEventListener('load', (event) => )
+        // get the file contents
+        const fileContents = event.target.result;
+        
+        // split the file contents by line
+        const lines = fileContents.split('\n');
+        
+        // get the checkbox container element
+        const checkboxContainer = document.getElementById('checkbox-container');
+        
+        // create a checkbox for each line in the file
+        lines.forEach (line) => {
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = line;
+          checkbox.name = 'line';
+          checkboxContainer.appendChild(checkbox);
+        }
+    </script>      
+</body>
+</html>

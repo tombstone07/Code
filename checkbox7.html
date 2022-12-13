@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>File Uploader</title>
+  </head>
+  <body>
+    <h1>File Uploader</h1>
+    <p>Please select a file to upload:</p>
+    <input type="file" id="fileInput" />
+
+    <div id="checkboxContainer"></div>
+
+    <script>
+      const fileInput = document.getElementById('fileInput');
+      const checkboxContainer = document.getElementById('checkboxContainer');
+
+      fileInput.addEventListener('change', function() {
+        // Read the contents of the uploaded file
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+          // Parse the file contents as text
+          const text = reader.result;
+          const lines = text.split('\n');
+
+          // Create a checkbox for each line of text
+          for (const line of lines) {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = line;
+            checkbox.name = line;
+            checkbox.id = line;
+
+            const label = document.createElement('label');
+            label.htmlFor = line;
+            label.innerHTML = line;
+
+            checkboxContainer.appendChild(checkbox);
+            checkboxContainer.appendChild(label);
+            checkboxContainer.appendChild(document.createElement('br'));
+          }
+        };
+        reader.readAsText(file);
+      });
+    </script>
+  </body>
+</html>

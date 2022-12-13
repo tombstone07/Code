@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Upload and Checkbox Example</title>
+</head>
+<body>
+
+<h1>File Upload and Checkbox Example</h1>
+
+<!-- This form allows the user to upload a file -->
+<form id="fileForm" method="post" enctype="multipart/form-data">
+  <label for="fileInput">Select a file to upload:</label><br>
+  <input type="file" id="fileInput" name="fileInput"><br>
+  <input type="submit" value="Upload File">
+</form>
+
+<!-- This container will hold the checkboxes created from the file data -->
+<div id="checkboxContainer"></div>
+
+<!-- This form will be used to submit the checked and unchecked data -->
+<form id="checkboxForm" method="post">
+  <input type="submit" value="Submit Checked and Unchecked Data">
+</form>
+
+<script>
+// Function to handle the file upload form submission
+function handleFileUpload(e) {
+  e.preventDefault(); // prevent the form from submitting
+
+  // Get the file input element and the selected file
+  var fileInput = document.getElementById('fileInput');
+  var file = fileInput.files[0];
+
+  // Create a new FileReader to read the file
+  var reader = new FileReader();
+
+  // When the file has been read, create the checkboxes from the data
+  reader.onload = function() {
+    // Get the file data as a string
+    var fileData = reader.result;
+
+    // Split the file data into an array of lines
+    var lines = fileData.split('\n');
+
+    // Create a div to hold the checkboxes
+    var checkboxDiv = document.createElement('div');
+
+    // Loop through each line in the file
+    for (var i = 0; i < lines.length; i++) {
+      // Create a checkbox element
+      var checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.name = 'checkbox-' + i;
+      checkbox.value = lines[i];
+
+      // Create a label for the checkbox
+      var label = document.createElement('label');
+      label.innerHTML = lines[i];
+
+      // Add the checkbox and label to the div
+      checkboxDiv.appendChild(checkbox);
+      checkboxDiv.appendChild(label);
+   
+</script>
+</body>
+</html>
